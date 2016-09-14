@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "karma start",
-    "start": "node server.js"
+    "start": "node server.js -- --watch"
   },
   "author": "W.E. McDermott",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.14.0",
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "lodash": "^4.15.0",
     "pdffiller": "^0.4.0",

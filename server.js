@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express();
+var bodyparser = require('body-parser');
+
 const PORT = process.env.PORT || 3000;
 
 app.use(function (req, res, next) {
@@ -11,7 +13,8 @@ app.use(function (req, res, next) {
 });
 
 app.use(express.static('public'));
-
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended: true}));
 require('./routes')(app);
 
 
