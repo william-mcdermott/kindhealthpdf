@@ -6,14 +6,12 @@ var FormUpload = require('FormUpload');
 var PdfMapper = React.createClass({
   getInitialState: function () {
     return {
-      showInputs: false
+      showInputs: [0]
     }
   },
-  componentDidUpdate: function (prevProps, prevState) {
-
-  },
   handleStatusChange: function () {
-    this.setState({showInputs: !this.state.showInputs});
+    var newInput = `${this.state.showInputs.length}`
+    this.setState({showInputs: this.state.showInputs.concat(newInput)});
   },
   render: function () {
     return (

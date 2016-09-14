@@ -12,6 +12,9 @@ app.use(function (req, res, next) {
 
 app.use(express.static('public'));
 
+require('./routes')(app);
+
+
 app.listen(PORT, function(){
   console.log('Express server up on Port ' + PORT);
 });
