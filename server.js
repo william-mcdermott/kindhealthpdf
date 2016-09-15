@@ -1,6 +1,9 @@
 var express = require('express');
 var app = express();
 var bodyparser = require('body-parser');
+var busboy = require('connect-busboy');
+var fileUpload = require('express-fileupload');
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -13,9 +16,15 @@ app.use(function (req, res, next) {
 });
 
 app.use(express.static('public'));
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended: true}));
+app.use(bodyparser.json({limit: '20mb'}));
+app.use(bodyparser.urlencoded({extended: true, limit: '20mb'}));
+app.use(fileUpload({
+  limits: { fileSize: 50 * 1024 * 1024 }
+}));
+
+// app.use(busboy());
 require('./routes')(app);
+
 
 
 app.listen(PORT, function(){

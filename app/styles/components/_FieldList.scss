@@ -1,0 +1,14 @@
+.fieldList {
+  border: 1px solid $grey;
+}
+
+.fieldName {
+  border: 1px solid $light-grey-border;
+  padding: 5px;
+  cursor: pointer
+}
+
+.disabled {
+  background-color: pink;
+  cursor: default;
+}
