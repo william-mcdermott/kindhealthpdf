@@ -10,7 +10,7 @@ module.exports = (app) =>{
       return
     }
     let sampleFile = req.files.file
-    console.log(sampleFile.mv);
+    console.log(sampleFile);
     if (!sampleFile) {
       res.status(500).send('err')
       return

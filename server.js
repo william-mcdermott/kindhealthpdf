@@ -16,8 +16,8 @@ app.use(function (req, res, next) {
 });
 
 app.use(express.static('public'));
-app.use(bodyparser.json({limit: '20mb'}));
-app.use(bodyparser.urlencoded({extended: true, limit: '20mb'}));
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended: true}));
 app.use(fileUpload({
   limits: { fileSize: 50 * 1024 * 1024 }
 }));

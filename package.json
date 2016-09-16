@@ -16,11 +16,14 @@
     "connect-busboy": "0.0.2",
     "express": "^4.14.0",
     "express-fileupload": "0.0.5",
+    "express-validator": "^2.20.8",
     "lodash": "^4.15.0",
+    "morgan": "^1.7.0",
     "pdffiller": "^0.4.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "react-router": "^2.0.0"
+    "react-router": "^2.0.0",
+    "webpack-hot-middleware": "^2.12.2"
   },
   "devDependencies": {
     "babel-core": "^6.5.1",
