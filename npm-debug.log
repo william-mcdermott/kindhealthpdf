@@ -1,35 +1,33 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/local/bin/node',
-1 verbose cli   '/Users/williammcdermott/.npm-packages/bin/npm',
-1 verbose cli   'start' ]
-2 info using npm@3.10.7
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'start' ]
+2 info using npm@3.10.3
 3 info using node@v6.5.0
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
 5 info lifecycle boilerplate@1.0.0~prestart: boilerplate@1.0.0
 6 silly lifecycle boilerplate@1.0.0~prestart: no script for prestart, continuing
 7 info lifecycle boilerplate@1.0.0~start: boilerplate@1.0.0
 8 verbose lifecycle boilerplate@1.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle boilerplate@1.0.0~start: PATH: /Users/williammcdermott/.npm-packages/lib/node_modules/npm/bin/node-gyp-bin:/Users/williammcdermott/galvanize/wk21/kindhealthpdf/node_modules/.bin:/Users/williammcdermott/.rvm/gems/ruby-2.1.5/bin:/Users/williammcdermott/.rvm/gems/ruby-2.1.5@global/bin:/Users/williammcdermott/.rvm/rubies/ruby-2.1.5/bin:/Users/williammcdermott/.npm-packages/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/williammcdermott/.rvm/bin:/Users/williammcdermott/.rvm/bin
-10 verbose lifecycle boilerplate@1.0.0~start: CWD: /Users/williammcdermott/galvanize/wk21/kindhealthpdf
+9 verbose lifecycle boilerplate@1.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/Christian/github/kindhealthpdf/node_modules/.bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+10 verbose lifecycle boilerplate@1.0.0~start: CWD: /Users/Christian/github/kindhealthpdf
 11 silly lifecycle boilerplate@1.0.0~start: Args: [ '-c', 'node server.js -- --watch' ]
 12 silly lifecycle boilerplate@1.0.0~start: Returned: code: 1  signal: null
 13 info lifecycle boilerplate@1.0.0~start: Failed to exec start script
 14 verbose stack Error: boilerplate@1.0.0 start: `node server.js -- --watch`
 14 verbose stack Exit status 1
-14 verbose stack     at EventEmitter.<anonymous> (/Users/williammcdermott/.npm-packages/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
+14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:242:16)
 14 verbose stack     at emitTwo (events.js:106:13)
 14 verbose stack     at EventEmitter.emit (events.js:191:7)
-14 verbose stack     at ChildProcess.<anonymous> (/Users/williammcdermott/.npm-packages/lib/node_modules/npm/lib/utils/spawn.js:40:14)
+14 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:40:14)
 14 verbose stack     at emitTwo (events.js:106:13)
 14 verbose stack     at ChildProcess.emit (events.js:191:7)
 14 verbose stack     at maybeClose (internal/child_process.js:877:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid boilerplate@1.0.0
-16 verbose cwd /Users/williammcdermott/galvanize/wk21/kindhealthpdf
+16 verbose cwd /Users/Christian/github/kindhealthpdf
 17 error Darwin 15.6.0
-18 error argv "/usr/local/bin/node" "/Users/williammcdermott/.npm-packages/bin/npm" "start"
+18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
 19 error node v6.5.0
-20 error npm  v3.10.7
+20 error npm  v3.10.3
 21 error code ELIFECYCLE
 22 error boilerplate@1.0.0 start: `node server.js -- --watch`
 22 error Exit status 1

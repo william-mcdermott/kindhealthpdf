@@ -8,7 +8,7 @@ var FormUpload = React.createClass({
     var data = new FormData()
     data.append('file', file)
     axios.post('/submitPdf', data).then(function(response) {
-      console.log(response);
+      console.log("FDF data", response.data);
     })
 
   },
