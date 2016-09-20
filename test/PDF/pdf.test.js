@@ -27,7 +27,7 @@ const cleanUpFiles = () => {
 cleanUpFiles();
 
 
-var nameRegex = null;  
+var nameRegex = null;
 //Rip the fields from an existing form
 pdfFiller.generateFDFTemplate( blankPDF, nameRegex, (err, fdfData) => {
     if (err) throw err;
@@ -42,7 +42,7 @@ pdfFiller.generateFDFTemplate( blankPDF, nameRegex, (err, fdfData) => {
     var shouldFlatten = false;
     pdfFiller.fillFormWithFlatten( blankPDF, destinationPDF, template_file, shouldFlatten, (err) => {
         if (err) throw err;
-        
+
         console.log("Saved file: ", destinationPDF)
     })
 

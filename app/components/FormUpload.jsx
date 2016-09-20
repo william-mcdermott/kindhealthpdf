@@ -1,16 +1,10 @@
 var React = require('react');
-var axios = require('axios');
 
 var FormUpload = React.createClass({
   handleSubmit: function (e) {
     e.preventDefault();
     var file = this.refs.file.files[0];
-    var data = new FormData()
-    data.append('file', file)
-    axios.post('/submitPdf', data).then(function(response) {
-      console.log("FDF data", response.data);
-    })
-
+    this.props.onSubmit(file);
   },
   render: function() {
     return (

@@ -1,22 +1,28 @@
 var React = require('react');
+var axios = require('axios');
 
 var PdfForm = require('PdfForm');
 var FormUpload = require('FormUpload');
 var FieldList = require('FieldList');
 var $ = require('jquery');
 
-$('.fieldName').click(function() {
-  console.log(this);
-  PdfMapper.handleAddField(this.innerHtml)
-})
 
 var PdfMapper = React.createClass({
   getInitialState: function () {
     return {
-      showInputs: [0],
       selectedFields: [],
+      dataFields: {},
       keyValues: {}
     }
+  },
+  handlePdfSubmit: function (file) {
+    var {dataFields} = this.state
+    var data = new FormData()
+    data.append('file', file)
+    axios.post('/submitPdf', data).then(function(response) {
+      console.log("FDF data", response.data);
+      dataFields = response.data
+    })
   },
   handleSubmit: function (submission) {
     this.state.selectedFields.forEach((field) => {
@@ -34,12 +40,13 @@ var PdfMapper = React.createClass({
     console.log(this.state.selectedFields);
   },
   render: function () {
+    console.log(this.state);
     return (
       <div>
         <div className="row">
           <div className="small-3 columns">
-            <FormUpload />
-            <FieldList onAddField={this.handleAddField} selectedFields={this.state.selectedFields}/>
+            <FormUpload onSubmit={this.handlePdfSubmit}/>
+            <FieldList onAddField={this.handleAddField} selectedFields={this.state.selectedFields} dataFields={this.state.dataFields}/>
           </div>
           <div className="small-9 columns">
             <PdfForm selectedFields={this.state.selectedFields} showInputs={this.state.showInputs} onSubmit={this.handleSubmit}/>
