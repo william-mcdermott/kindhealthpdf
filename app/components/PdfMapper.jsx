@@ -4,16 +4,41 @@ var axios = require('axios');
 var PdfForm = require('PdfForm');
 var FormUpload = require('FormUpload');
 var FieldList = require('FieldList');
+var SelectedFields = require('SelectedFields')
 var $ = require('jquery');
 
 
 var PdfMapper = React.createClass({
   getInitialState: function () {
     return {
+      dataList: {
+        fdfNames: [],
+        varNames: [],
+        mapPairs: []
+      },
+      selected: {
+        fdfNames: [],
+        varNames: [],
+        mapPairs: []
+      },
       selectedFields: [],
       dataFields:  [],
-      keyValues: {}
+      chosenFields: []
     }
+  },
+  handleSubmitFields: function () {
+    var {selectedFields, dataFields, chosenFields} = this.state;
+    selectedFields.forEach((field) => {
+      dataFields.splice(dataFields.indexOf(field), 1)
+      chosenFields.push(field);
+      console.log(dataFields);
+      console.log(chosenFields);
+    })
+    this.setState({
+      dataFields: dataFields,
+      chosenFields: chosenFields,
+      selectedFields: []
+    })
   },
   handlePdfSubmit: function (file) {
     var newFields = []
@@ -35,7 +60,7 @@ var PdfMapper = React.createClass({
     })
     console.log(this.state);
   },
-  handleAddField: function (fieldName) {
+  handleToggleField: function (fieldName) {
     var fieldIndex = this.state.selectedFields.indexOf(fieldName)
     if (fieldIndex === -1){
       this.state.selectedFields.push(fieldName)
@@ -49,14 +74,22 @@ var PdfMapper = React.createClass({
     return (
       <div>
         <div className="row">
-          <div className="small-5 columns">
+          <div className="small-3 columns">
             <FormUpload onSubmit={this.handlePdfSubmit}/>
-            <FieldList onAddField={this.handleAddField} selectedFields={this.state.selectedFields} dataFields={this.state.dataFields}/>
           </div>
-          <div className="small-7 columns">
+          <div className="small-9 columns">
             <PdfForm selectedFields={this.state.selectedFields} showInputs={this.state.showInputs} onSubmit={this.handleSubmit}/>
           </div>
         </div>
+        <div className="row">
+          <div className="small-4 columns">
+            <FieldList onSubmit={this.handleSubmitFields} onToggleField={this.handleToggleField} selectedFields={this.state.selectedFields} dataFields={this.state.dataFields}/>
+          </div>
+          <div className="small-4 columns">
+            <SelectedFields chosenFields={this.state.chosenFields} />
+          </div>
+        </div>
+
       </div>
     );
   }
