@@ -6,17 +6,18 @@ var FormUpload = require('FormUpload');
 var FieldList = require('FieldList');
 var SelectedFields = require('SelectedFields')
 var $ = require('jquery');
+var _ = require('lodash');
 
 
 var PdfMapper = React.createClass({
   getInitialState: function () {
     return {
-      dataList: {
+      selected: {
         fdfNames: [],
         varNames: [],
         mapPairs: []
       },
-      selected: {
+      dataList: {
         fdfNames: [],
         varNames: [],
         mapPairs: []
@@ -27,16 +28,39 @@ var PdfMapper = React.createClass({
     }
   },
   handleSubmitFields: function () {
-    var {selectedFields, dataFields, chosenFields} = this.state;
-    selectedFields.forEach((field) => {
-      dataFields.splice(dataFields.indexOf(field), 1)
-      chosenFields.push(field);
-      console.log(dataFields);
-      console.log(chosenFields);
+    // var {selectedFields, dataFields, chosenFields} = this.state;
+    var selected_array = "fdfNames"
+    var to_array = "mapPairs"
+    var newSelected = {}
+    var newDataList = {}
+    var array_names = ["fdfNames", "varNames", "mapPairs"]
+    // var excluded_names = [];
+    // if (array_names.indexOf(selected_array)) {
+    //   excluded_names = _.difference(array_names, [selected_array])
+    // }
+    // excluded_names.forEach((name) => {
+    //   newSelected[name] = this.state.selected[name];
+    //   newDataList[name] = this.state.dataList[name];
+    // })
+
+    array_names.forEach((name) => {
+      newSelected[name] = this.state.selected[name];
+      newDataList[name] = this.state.dataList[name];
     })
+    // var {fdfNames, varNames, mapPairs} = this.state.selected;
+    // var {varNames, fdfNames, mapPairs} = this.state.dataList;
+
+    // Take selected out of data field
+    newSelected[selected_array].forEach((field) => {
+      newDataList[selected_array].splice(newDataList[selected_array].indexOf(field), 1)
+      newDataList[to_array].push(field);
+    })
+    // Clear selected fields object
+    newSelected[selected_array]=[]
+
     this.setState({
-      dataFields: dataFields,
-      chosenFields: chosenFields,
+      selected: newSelected,
+      dataList: newDataList,
       selectedFields: []
     })
   },
@@ -49,25 +73,28 @@ var PdfMapper = React.createClass({
       console.log("FDF data", response.data);
       newFields = Object.keys(response.data);
       that.setState({
-        dataFields: newFields
+        dataList: {
+          fdfNames: newFields,
+          varNames: [],
+          mapPairs: []
+        }
       })
     })
     console.log(this.state);
   },
-  handleSubmit: function (submission) {
-    this.state.selectedFields.forEach((field) => {
-      this.state.keyValues[field] = submission;
-    })
-    console.log(this.state);
-  },
+  // handleSubmit: function (submission) {
+  //   this.state.selectedFields.forEach((field) => {
+  //     this.state.keyValues[field] = submission;
+  //   })
+  //   console.log(this.state);
+  // },
   handleToggleField: function (fieldName) {
-    var fieldIndex = this.state.selectedFields.indexOf(fieldName)
+    var fieldIndex = this.state.selected.fdfNames.indexOf(fieldName)
     if (fieldIndex === -1){
-      this.state.selectedFields.push(fieldName)
+      this.state.selected.fdfNames.push(fieldName)
     } else {
-      this.state.selectedFields.splice(fieldIndex, 1)
+      this.state.selected.fdfNames.splice(fieldIndex, 1)
     };
-    console.log(this.state.selectedFields);
   },
   render: function () {
     console.log(this.state);
@@ -83,10 +110,10 @@ var PdfMapper = React.createClass({
         </div>
         <div className="row">
           <div className="small-4 columns">
-            <FieldList onSubmit={this.handleSubmitFields} onToggleField={this.handleToggleField} selectedFields={this.state.selectedFields} dataFields={this.state.dataFields}/>
+            <FieldList onSubmit={this.handleSubmitFields} onToggleField={this.handleToggleField} selectedFields={this.state.selected.fdfNames} dataFields={this.state.dataList.fdfNames}/>
           </div>
           <div className="small-4 columns">
-            <SelectedFields chosenFields={this.state.chosenFields} />
+            <SelectedFields chosenFields={this.state.dataList.varNames} />
           </div>
         </div>
 
