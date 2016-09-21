@@ -7,6 +7,8 @@ var FieldList = require('FieldList');
 var SelectedFields = require('SelectedFields')
 var $ = require('jquery');
 
+var varNamesList = require('../../data/varNames.js')()
+console.log(varNamesList)
 
 var PdfMapper = React.createClass({
   getInitialState: function () {
