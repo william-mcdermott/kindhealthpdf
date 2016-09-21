@@ -8,6 +8,8 @@ var SelectedFields = require('SelectedFields')
 var $ = require('jquery');
 var _ = require('lodash');
 
+var varNamesList = require('../../data/varNames.js')()
+console.log(varNamesList)
 
 var PdfMapper = React.createClass({
   getInitialState: function () {
