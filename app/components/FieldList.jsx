@@ -6,7 +6,7 @@ var FieldList = React.createClass({
   getInitialState: function () {
     return {
       jsxReturn: [],
-      dataFields: ['Name', 'Address'],
+      dataFields: [],
       dataFieldArray: []
     }
   },

@@ -49,11 +49,11 @@ var PdfMapper = React.createClass({
     return (
       <div>
         <div className="row">
-          <div className="small-3 columns">
+          <div className="small-5 columns">
             <FormUpload onSubmit={this.handlePdfSubmit}/>
             <FieldList onAddField={this.handleAddField} selectedFields={this.state.selectedFields} dataFields={this.state.dataFields}/>
           </div>
-          <div className="small-9 columns">
+          <div className="small-7 columns">
             <PdfForm selectedFields={this.state.selectedFields} showInputs={this.state.showInputs} onSubmit={this.handleSubmit}/>
           </div>
         </div>

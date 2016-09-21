@@ -57,8 +57,9 @@ module.exports = (app) =>{
       try {
         var sourcePDF = './tmp/blank.pdf';
         var destinationPDF = './tmp/filled.pdf';
+        var applicantname = 'name'
         var data = new Object();
-        data['Applicant Name'] = 'Bill';
+        data['Applicant Name'] = 'applicantname';
         data['Applicant Name_1'] = 'Bill';
         data['Applicant Name_2'] = 'Bill';
         data['Applicant Name_3'] = 'Bill';
