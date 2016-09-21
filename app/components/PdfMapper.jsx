@@ -6,6 +6,8 @@ var FormUpload = require('FormUpload');
 var FieldList = require('FieldList');
 var $ = require('jquery');
 
+var varNamesList = require('../../data/varNames.js')()
+console.log(varNamesList)
 
 var PdfMapper = React.createClass({
   getInitialState: function () {
