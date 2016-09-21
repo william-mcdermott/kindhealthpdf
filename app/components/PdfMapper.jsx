@@ -11,18 +11,23 @@ var PdfMapper = React.createClass({
   getInitialState: function () {
     return {
       selectedFields: [],
-      dataFields: {},
+      dataFields:  [],
       keyValues: {}
     }
   },
   handlePdfSubmit: function (file) {
-    var {dataFields} = this.state
-    var data = new FormData()
+    var newFields = []
+    var data = new FormData
+    var that = this
     data.append('file', file)
     axios.post('/submitPdf', data).then(function(response) {
       console.log("FDF data", response.data);
-      dataFields = response.data
+      newFields = Object.keys(response.data);
+      that.setState({
+        dataFields: newFields
+      })
     })
+    console.log(this.state);
   },
   handleSubmit: function (submission) {
     this.state.selectedFields.forEach((field) => {

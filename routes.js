@@ -1,5 +1,3 @@
-'use strict'
-
 var parsedJSON = require('./data/fields.json');
 var pdfFiller = require('pdffiller');
 var fs = require('fs');
@@ -41,6 +39,57 @@ module.exports = (app) =>{
       }
 
     }
+  });
+
+  app.post('/fillPdf', function (req, res) {
+    // if (!req.data) {
+    //   res.send('No data was uploaded.');
+    //   return;
+    // }
+    // let sampleData = req.data;
+    //
+    // if (!sampleData) {
+    //   return res.status(500).send('err');
+    //
+    // } else {
+
+      // try to run code that might fail disastrously
+      try {
+        var sourcePDF = './tmp/blank.pdf';
+        var destinationPDF = './tmp/filled.pdf';
+        var data = new Object();
+        data['Applicant Name'] = 'Bill';
+        data['Applicant Name_1'] = 'Bill';
+        data['Applicant Name_2'] = 'Bill';
+        data['Applicant Name_3'] = 'Bill';
+        data['Applicant Name_4'] = 'Bill';
+        data['Applicant Name_5'] = 'Bill';
+        data['Applicant Name_6'] = 'Bill';
+        data['Applicant Name_7'] = 'Bill';
+        data['Applicant Name_8'] = 'Bill';
+        data['Applicant Name_9'] = 'Bill';
+        data['Applicant Name_10'] = 'Bill';
+        var shouldFlatten = false;
+        console.log(data);
+
+        // Have to save the file for the pdftk bin
+        pdfFiller.fillFormWithFlatten(sourcePDF, destinationPDF, data, shouldFlatten, function (err) {
+          if (err) throw err;
+          console.log("In callback (we're done).");
+        });
+        // fs.writeFile(writeFilePath, sampleFile.data, function (err) {
+        //   if (err) return console.log(err);
+        //   console.log('File written');
+        //   var nameRegex = null;
+        //   // Here instead of write a file, do your PDF map work, return the fields
+        // });
+
+      } catch(err) { // if something goes wrong in the try, return 500
+        console.log(err);
+        return res.status(500).json("Server failed to parse PDF");
+      }
+
+    // }
   });
 
     // console.log(file);

@@ -6,35 +6,37 @@ var FieldList = React.createClass({
   getInitialState: function () {
     return {
       jsxReturn: [],
-      dataFields: this.props.dataFields
+      dataFields: ['Name', 'Address'],
+      dataFieldArray: []
     }
   },
-  handleClick: function (newField) {
+  handleClick: function (newField, index) {
     this.props.onAddField(newField)
-    $('#' + newField).toggleClass('disabled');
+    $('#' + index).toggleClass('disabled');
   },
-  componentWillReceiveProps: function () {
+  componentWillReceiveProps: function (nextProps) {
     this.setState({
-      dataFields: this.props.dataFields
+      dataFields: nextProps.dataFields
     })
-    console.log(this.state);
+    console.log(this.props);
   },
   render: function () {
-    console.log(this.state);
+
     var {selectedFields} = this.props
     var {dataFields} = this.state
+    console.log(this.props);
     var fieldClass = classNames({
       'disabled': selectedFields.indexOf(this) !== -1,
       'fieldName': true
     })
+    var that = this;
     var renderDataFields = function () {
-      var dataFieldArray = Object.keys(dataFields);
-      console.log(dataFieldArray);
-      dataFieldArray.map((field) => {
+      console.log(dataFields);
+      return dataFields.map((field) => {
         return (
-          <div className={fieldClass} id={field} onClick={() => this.handleClick({field})}>{field}</div>
+          <div key={dataFields.indexOf(field)} className={fieldClass} id={dataFields.indexOf(field)} onClick={() => that.handleClick(field, dataFields.indexOf(field))}>{field}</div>
+          // <div key={dataFields.indexOf(field)} className="fieldName">{field}</div>
         )
-
       });
     };
     return (

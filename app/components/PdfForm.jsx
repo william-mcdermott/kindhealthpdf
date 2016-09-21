@@ -6,6 +6,7 @@ var PdfForm = React.createClass({
     this.props.onSubmit(this.refs.value.value);
     var {showInputs} = this.props
     var {key, value} = this.refs
+    this.refs.value.value = ''
     // if (showInputs && key.value.length) {
     //   this.state.keyValues[key.value] = value.value
     // }
