@@ -26,7 +26,7 @@ var PdfMapper = React.createClass({
       }
     }
   },
-  // Check all selected indices from 
+  // Check all selected indices from
   handleSubmitFields: function () {
     // var {selectedFields, dataFields, chosenFields} = this.state;
     var fdfArray = "fdfNames"
@@ -61,10 +61,10 @@ var PdfMapper = React.createClass({
       var newValue = ''
 
       newValue = value+ ' : ' + selectedVar
-      newDataList[to_array].push(newValue);
+      newDataList[to_array].unshift(newValue);
     });
 
-    // Clear selected fdf 
+    // Clear selected fdf
     newSelected[fdfArray]=[]
     // Clear selected vars
     newSelected[varArray]=[]
@@ -73,7 +73,7 @@ var PdfMapper = React.createClass({
       selected: newSelected,
       dataList: newDataList,
     });
-   
+
     $('.disabled').toggleClass('disabled');
 
   },
@@ -138,10 +138,10 @@ var PdfMapper = React.createClass({
         </div>
         <div className="row">
           <div className="small-5 columns">
-            <button className="button right" onClick={this.handleSubmitFields}>Button</button>
+            <button className="button right" onClick={this.handleSubmitFields}>Add pair</button>
           </div>
           <div className="small-4 columns">
-            <button className="button right">button</button>
+            <button className="button right">Remove pair</button>
           </div>
           <div className="small-9 columns">
             {/*<PdfForm selectedFields={this.state.selectedFields} showInputs={this.state.showInputs} onSubmit={this.handleSubmit}/>*/}

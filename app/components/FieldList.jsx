@@ -5,12 +5,16 @@ var classNames = require('classnames')
 var FieldList = React.createClass({
 
   handleClick: function (field, index) {
-    this.props.onToggleField(field, this.props.listId)
-    // var fieldClass = classNames({
-    //   'disabled': selectedFields.indexOf(newField) != -1,
-    //   'fieldName': true
-    // })
-    $('#' + this.props.listId + index).toggleClass('disabled');
+    if (this.props.listId === 'varNames' && this.props.selectedFields.length && this.props.selectedFields.indexOf(field) === -1) {
+      alert('You cannot select more than one variable')
+    } else {
+      this.props.onToggleField(field, this.props.listId)
+      // var fieldClass = classNames({
+      //   'disabled': selectedFields.indexOf(newField) != -1,
+      //   'fieldName': true
+      // })
+      $('#' + this.props.listId + index).toggleClass('disabled');
+    }
   },
   componentWillReceiveProps: function (nextProps) {
     this.setState({
@@ -25,7 +29,7 @@ var FieldList = React.createClass({
     var renderDataFields = function () {
       return dataFields.map((field) => {
         return (
-          <div key={listId + dataFields.indexOf(field)} className="fieldName" id={listId + dataFields.indexOf(field)} 
+          <div key={listId + dataFields.indexOf(field)} className="fieldName" id={listId + dataFields.indexOf(field)}
           onClick={() => that.handleClick(field, dataFields.indexOf(field))}>{field}</div>
           // <div key={dataFields.indexOf(field)} className="fieldName">{field}</div>
         )
