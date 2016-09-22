@@ -128,6 +128,15 @@ var PdfMapper = React.createClass({
     })
     console.log(this.state);
   },
+    handleTestPdf: function (file) {
+    var pdfMap = []
+
+    axios.post('/testPdf').then(function(response) {
+      console.log("Downloading file...");
+      console.log(response)
+      // Maybe return a URL to open in a new tab
+    })
+  },
   // Add, or remove the index from the "selected" array
   handleToggleField: function (field, listId) {
     var fdfArray = "fdfNames"
@@ -209,7 +218,7 @@ var PdfMapper = React.createClass({
           <div className="small-4 columns">
             <button className="button right" onClick={this.handleRemovePair}>Remove pair</button>
             <button className="button" onClick={this.handleFindSimilar}>Find similar</button>
-            <button className="button right">Button</button>
+            <button className="button right" onClick={this.handleTestPdf}>Test PDF map</button>
           </div>
         </div>
         <div className="row">
