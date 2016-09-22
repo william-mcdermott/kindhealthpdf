@@ -9,7 +9,6 @@ var $ = require('jquery');
 var _ = require('lodash');
 
 var varNamesList = require('../../data/varNames.js')()
-console.log(varNamesList)
 
 var PdfMapper = React.createClass({
   getInitialState: function () {
@@ -22,23 +21,21 @@ var PdfMapper = React.createClass({
       dataList: {
         fdfNames: [],
         varNames: [],
-        mapPairs: []
-      },
-      selectedFields: [],
-      dataFields:  [],
-      chosenFields: []
+        mapPairs: [],
+      }
     }
   },
   handleSubmitFields: function () {
     // var {selectedFields, dataFields, chosenFields} = this.state;
-    var selected_array = "fdfNames"
+    var fdfArray = "fdfNames"
+    var varArray = "varNames"
     var to_array = "mapPairs"
     var newSelected = {}
     var newDataList = {}
     var array_names = ["fdfNames", "varNames", "mapPairs"]
     // var excluded_names = [];
-    // if (array_names.indexOf(selected_array)) {
-    //   excluded_names = _.difference(array_names, [selected_array])
+    // if (array_names.indexOf(fdfArray)) {
+    //   excluded_names = _.difference(array_names, [fdfArray])
     // }
     // excluded_names.forEach((name) => {
     //   newSelected[name] = this.state.selected[name];
@@ -49,22 +46,34 @@ var PdfMapper = React.createClass({
       newSelected[name] = this.state.selected[name];
       newDataList[name] = this.state.dataList[name];
     })
-    // var {fdfNames, varNames, mapPairs} = this.state.selected;
-    // var {varNames, fdfNames, mapPairs} = this.state.dataList;
-
+      if (newSelected[varArray].length === 0) {
+        console.log("error no selected vars");
+      }
     // Take selected out of data field
-    newSelected[selected_array].forEach((field) => {
-      newDataList[selected_array].splice(newDataList[selected_array].indexOf(field), 1)
-      newDataList[to_array].push(field);
-    })
+    var tempArray = []
+    newSelected[fdfArray].forEach((index) => {
+      newDataList[fdfArray].splice(newDataList[fdfArray].indexOf(index), 1)
+      tempArray.push(index);
+    });
+    var vIndex = newSelected[varArray][0];
+    tempArray.forEach((index) => {
+      var newValue = ''
+
+      newValue = '' + newDataList[fdfArray][index] + ' : ' + newDataList[varArray][vIndex]
+      console.log(vIndex);
+      console.log(newDataList[varArray][vIndex]);
+      newDataList[to_array].push(newValue);
+    });
+
     // Clear selected fields object
-    newSelected[selected_array]=[]
+    newSelected[fdfArray]=[]
 
     this.setState({
       selected: newSelected,
       dataList: newDataList,
-      selectedFields: []
-    })
+    });
+    $('.disabled').toggleClass('disabled');
+
   },
   handlePdfSubmit: function (file) {
     var newFields = []
@@ -77,7 +86,7 @@ var PdfMapper = React.createClass({
       that.setState({
         dataList: {
           fdfNames: newFields,
-          varNames: [],
+          varNames: varNamesList,
           mapPairs: []
         }
       })
@@ -90,13 +99,29 @@ var PdfMapper = React.createClass({
   //   })
   //   console.log(this.state);
   // },
-  handleToggleField: function (fieldName) {
-    var fieldIndex = this.state.selected.fdfNames.indexOf(fieldName)
+  handleToggleField: function (fieldIndex, listId) {
+    var fdfArray = "fdfNames"
+    var varArray = "varNames"
+    var to_array = "mapPairs"
+    var newSelected = {}
+    var newDataList = {}
+    var array_names = ["fdfNames", "varNames", "mapPairs"]
+    array_names.forEach((name) => {
+      newSelected[name] = this.state.selected[name];
+      newDataList[name] = this.state.dataList[name];
+    })
+    console.log(listId);
+    // var fieldIndex = this.state.selected[listId].indexOf(fieldName)
     if (fieldIndex === -1){
-      this.state.selected.fdfNames.push(fieldName)
+      newSelected[listId].push(fieldIndex)
     } else {
-      this.state.selected.fdfNames.splice(fieldIndex, 1)
+      newSelected[listId].splice(fieldIndex, 1)
     };
+    this.setState({
+      selected: newSelected,
+      dataList: newDataList,
+    });
+
   },
   render: function () {
     console.log(this.state);
@@ -107,15 +132,29 @@ var PdfMapper = React.createClass({
             <FormUpload onSubmit={this.handlePdfSubmit}/>
           </div>
           <div className="small-9 columns">
-            <PdfForm selectedFields={this.state.selectedFields} showInputs={this.state.showInputs} onSubmit={this.handleSubmit}/>
+            {/*<PdfForm selectedFields={this.state.selectedFields} showInputs={this.state.showInputs} onSubmit={this.handleSubmit}/>*/}
+          </div>
+        </div>
+        <div className="row">
+          <div className="small-5 columns">
+            <button className="button right" onClick={this.handleSubmitFields}>Button</button>
+          </div>
+          <div className="small-4 columns">
+            <button className="button right">button</button>
+          </div>
+          <div className="small-9 columns">
+            {/*<PdfForm selectedFields={this.state.selectedFields} showInputs={this.state.showInputs} onSubmit={this.handleSubmit}/>*/}
           </div>
         </div>
         <div className="row">
           <div className="small-4 columns">
-            <FieldList onSubmit={this.handleSubmitFields} onToggleField={this.handleToggleField} selectedFields={this.state.selected.fdfNames} dataFields={this.state.dataList.fdfNames}/>
+            <FieldList onToggleField={this.handleToggleField} listId="fdfNames" selectedFields={this.state.selected.fdfNames} dataFields={this.state.dataList.fdfNames}/>
           </div>
           <div className="small-4 columns">
-            <SelectedFields chosenFields={this.state.dataList.varNames} />
+            <FieldList onToggleField={this.handleToggleField} listId="varNames" selectedFields={this.state.selected.varNames} dataFields={this.state.dataList.varNames}/>
+          </div>
+          <div className="small-4 columns">
+            <FieldList onToggleField={this.handleToggleField} listId="mapPairs" selectedFields={this.state.selected.mapPairs} dataFields={this.state.dataList.mapPairs}/>
           </div>
         </div>
 
