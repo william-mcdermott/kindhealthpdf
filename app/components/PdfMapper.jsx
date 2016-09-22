@@ -157,6 +157,18 @@ var PdfMapper = React.createClass({
     });
 
   },
+  handleFindSimilar: function () {
+    var fieldToCheck = this.state.selected.mapPairs[0].split(' : ')[0]
+    console.log(fieldToCheck);
+    var arrayToCheck = this.state.dataList.fdfNames;
+    var similarFields = arrayToCheck.filter((item) => {
+      return item.indexOf(fieldToCheck) !== -1
+    });
+    similarFields.forEach((field) => {
+      $('#fdfNames' + this.state.dataList.fdfNames.indexOf(field)).toggleClass('disabled');
+      this.handleToggleField(field, 'fdfNames')
+    })
+  },
   render: function () {
     console.log(this.state);
     return (
@@ -170,14 +182,16 @@ var PdfMapper = React.createClass({
           </div>
         </div>
         <div className="row">
-          <div className="small-5 columns">
+          <div className="small-4 columns">
+            <p></p>
+          </div>
+          <div className="small-4 columns">
             <button className="button right" onClick={this.handleSubmitFields}>Add pair</button>
           </div>
           <div className="small-4 columns">
             <button className="button right" onClick={this.handleRemovePair}>Remove pair</button>
-          </div>
-          <div className="small-9 columns">
-            {/*<PdfForm selectedFields={this.state.selectedFields} showInputs={this.state.showInputs} onSubmit={this.handleSubmit}/>*/}
+            <button className="button" onClick={this.handleFindSimilar}>Find similar</button>
+            <button className="button right">Button</button>
           </div>
         </div>
         <div className="row">
