@@ -13,6 +13,7 @@ var varNamesList = require('../../data/varNames.js')()
 var PdfMapper = React.createClass({
   getInitialState: function () {
     return {
+      // Selected values from the dataList
       selected: {
         fdfNames: [],
         varNames: [],
@@ -25,6 +26,7 @@ var PdfMapper = React.createClass({
       }
     }
   },
+  // Check all selected indices from 
   handleSubmitFields: function () {
     // var {selectedFields, dataFields, chosenFields} = this.state;
     var fdfArray = "fdfNames"
@@ -49,29 +51,29 @@ var PdfMapper = React.createClass({
       if (newSelected[varArray].length === 0) {
         console.log("error no selected vars");
       }
-    // Take selected out of data field
-    var tempArray = []
-    newSelected[fdfArray].forEach((index) => {
-      newDataList[fdfArray].splice(newDataList[fdfArray].indexOf(index), 1)
-      tempArray.push(index);
+    // Take selected out of the fdf dataList field
+    newSelected[fdfArray].forEach((value) => {
+      newDataList[fdfArray].splice(newDataList[fdfArray].indexOf(value), 1)
     });
-    var vIndex = newSelected[varArray][0];
-    tempArray.forEach((index) => {
+
+    var selectedVar = newSelected[varArray][0];
+    newSelected[fdfArray].forEach((value) => {
       var newValue = ''
 
-      newValue = '' + newDataList[fdfArray][index] + ' : ' + newDataList[varArray][vIndex]
-      console.log(vIndex);
-      console.log(newDataList[varArray][vIndex]);
+      newValue = value+ ' : ' + selectedVar
       newDataList[to_array].push(newValue);
     });
 
-    // Clear selected fields object
+    // Clear selected fdf 
     newSelected[fdfArray]=[]
+    // Clear selected vars
+    newSelected[varArray]=[]
 
     this.setState({
       selected: newSelected,
       dataList: newDataList,
     });
+   
     $('.disabled').toggleClass('disabled');
 
   },
@@ -93,13 +95,8 @@ var PdfMapper = React.createClass({
     })
     console.log(this.state);
   },
-  // handleSubmit: function (submission) {
-  //   this.state.selectedFields.forEach((field) => {
-  //     this.state.keyValues[field] = submission;
-  //   })
-  //   console.log(this.state);
-  // },
-  handleToggleField: function (fieldIndex, listId) {
+  // Add, or remove the index from the "selected" array
+  handleToggleField: function (field, listId) {
     var fdfArray = "fdfNames"
     var varArray = "varNames"
     var to_array = "mapPairs"
@@ -110,12 +107,16 @@ var PdfMapper = React.createClass({
       newSelected[name] = this.state.selected[name];
       newDataList[name] = this.state.dataList[name];
     })
-    console.log(listId);
-    // var fieldIndex = this.state.selected[listId].indexOf(fieldName)
-    if (fieldIndex === -1){
-      newSelected[listId].push(fieldIndex)
+    //console.log("ToggleField fieldIndex", fieldIndex);
+    // Check if the fieldIndex has been added to the selected array
+    var foundIndex = this.state.selected[listId].indexOf(field)
+    if (foundIndex === -1){
+      newSelected[listId].push(field)
+      console.log("pushed ", field)
     } else {
-      newSelected[listId].splice(fieldIndex, 1)
+      newSelected[listId].splice(newSelected[listId].indexOf(field), 1)
+      console.log("spliced ", field)
+
     };
     this.setState({
       selected: newSelected,
