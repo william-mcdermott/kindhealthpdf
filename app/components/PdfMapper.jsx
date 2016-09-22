@@ -164,6 +164,7 @@ var PdfMapper = React.createClass({
       selected: newSelected,
       dataList: newDataList,
     });
+    $('#' + listId + this.state.dataList[listId].indexOf(field)).toggleClass('disabled');
 
   },
   handleFindSimilar: function () {
@@ -178,11 +179,12 @@ var PdfMapper = React.createClass({
         return item.indexOf(fieldToCheck) !== -1
       });
       similarFields.forEach((field) => {
-        $('#fdfNames' + this.state.dataList.fdfNames.indexOf(field)).toggleClass('disabled');
+        // $('#fdfNames' + this.state.dataList.fdfNames.indexOf(field)).toggleClass('disabled');
         this.handleToggleField(field, 'fdfNames')
       })
       this.handleToggleField(varYouPicked, 'varNames');
-      $('#varNames' + this.state.dataList.varNames.indexOf(varYouPicked)).toggleClass('disabled');
+      this.handleToggleField(this.state.selected.mapPairs[0], 'mapPairs')
+      // $('#mapPairs' + this.state.dataList.mapPairs.indexOf(this.state.selected.mapPairs[0])).toggleClass('disabled');
     }
   },
   render: function () {
