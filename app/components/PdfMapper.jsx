@@ -162,6 +162,7 @@ var PdfMapper = React.createClass({
       alert('Please select exactly one map pair to search')
     } else {
       var fieldToCheck = this.state.selected.mapPairs[0].split(' : ')[0]
+      var varYouPicked = this.state.selected.mapPairs[0].split(' : ')[1]
       console.log(fieldToCheck);
       var arrayToCheck = this.state.dataList.fdfNames;
       var similarFields = arrayToCheck.filter((item) => {
@@ -171,16 +172,20 @@ var PdfMapper = React.createClass({
         $('#fdfNames' + this.state.dataList.fdfNames.indexOf(field)).toggleClass('disabled');
         this.handleToggleField(field, 'fdfNames')
       })
+      this.handleToggleField(varYouPicked, 'varNames');
+      $('#varNames' + this.state.dataList.varNames.indexOf(varYouPicked)).toggleClass('disabled');
     }
   },
   render: function () {
     console.log(this.state);
-    var selectedFdfNamesLength = this.state.selected.fdfNames.length
-    var fdfNamesLength = this.state.dataList.fdfNames.length
-    var renderNumberSelected = function () {
+    var that = this
+    var renderNumberSelected = function (listId) {
+      var selectedNamesLength = that.state.selected[listId].length
+      var namesLength = that.state.dataList[listId].length
+      var fdfNamesLength = that.state.dataList.fdfNames.length
       if (fdfNamesLength) {
         return (
-          <p>Number of fields selected: {selectedFdfNamesLength}</p>
+          <p>Number of fields selected: {selectedNamesLength}</p>
         )
       }
     };
@@ -209,13 +214,15 @@ var PdfMapper = React.createClass({
         </div>
         <div className="row">
           <div className="small-4 columns">
-            {renderNumberSelected()}
+            {renderNumberSelected('fdfNames')}
             <FieldList onToggleField={this.handleToggleField} listId="fdfNames" selectedFields={this.state.selected.fdfNames} dataFields={this.state.dataList.fdfNames}/>
           </div>
           <div className="small-4 columns">
+            {renderNumberSelected('varNames')}
             <FieldList onToggleField={this.handleToggleField} listId="varNames" selectedFields={this.state.selected.varNames} dataFields={this.state.dataList.varNames}/>
           </div>
           <div className="small-4 columns">
+            {renderNumberSelected('mapPairs')}
             <FieldList onToggleField={this.handleToggleField} listId="mapPairs" selectedFields={this.state.selected.mapPairs} dataFields={this.state.dataList.mapPairs}/>
           </div>
         </div>
