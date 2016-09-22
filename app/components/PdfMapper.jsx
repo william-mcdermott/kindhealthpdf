@@ -226,7 +226,6 @@ var PdfMapper = React.createClass({
           <div className="small-4 columns">
             <button className="button right" onClick={this.handleRemovePair}>Remove pair</button>
             <button className="button" onClick={this.handleFindSimilar}>Find similar</button>
-            <button className="button right" onClick={this.handleTestPdf}>Test PDF map</button>
           </div>
         </div>
         <div className="row">
@@ -241,6 +240,7 @@ var PdfMapper = React.createClass({
           <div className="small-4 columns">
             {renderNumberSelected('mapPairs')}
             <FieldList onToggleField={this.handleToggleField} listId="mapPairs" selectedFields={this.state.selected.mapPairs} dataFields={this.state.dataList.mapPairs}/>
+            <button className="button right" onClick={this.handleTestPdf}>Test PDF map</button>
           </div>
         </div>
 

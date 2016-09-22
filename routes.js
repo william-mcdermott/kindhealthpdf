@@ -1,3 +1,5 @@
+'use strict'
+
 var parsedJSON = require('./data/fields.json')
 var pdfFiller = require('pdffiller')
 var fs = require('fs')
@@ -45,6 +47,11 @@ module.exports = (app) => {
       var destinationPDF = './test/PDF/smallFilled.pdf'
       var data = req.body
       var shouldFlatten = false
+
+      pdfFiller.fillFormWithFlatten(sourcePDF, destinationPDF, data, shouldFlatten, function(err) {
+        if (err) throw err;
+        return res.status(200).sendFile(destinationPDF, {"root": __dirname})
+      })
       /*
       // try to run code that might fail disastrously
       try {
