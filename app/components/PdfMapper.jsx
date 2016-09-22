@@ -77,6 +77,39 @@ var PdfMapper = React.createClass({
     $('.disabled').toggleClass('disabled');
 
   },
+  handleRemovePair: function () {
+    var fdfArray = "fdfNames"
+    var varArray = "varNames"
+    var to_array = "mapPairs"
+    var newSelected = {}
+    var newDataList = {}
+    var array_names = ["fdfNames", "varNames", "mapPairs"]
+    array_names.forEach((name) => {
+      newSelected[name] = this.state.selected[name];
+      newDataList[name] = this.state.dataList[name];
+    })
+    // Add selected back to dataList
+    newSelected[to_array].forEach((value) => {
+      var valueToPush = value.split(' : ')[0]
+      newDataList[fdfArray].unshift(valueToPush)
+    });
+
+    newSelected[to_array].forEach((value) => {
+      newDataList[to_array].splice(newDataList[to_array].indexOf(value), 1)
+    });
+
+    // clear selected mapPairs
+    newSelected[to_array]=[];
+
+    this.setState({
+      selected: newSelected,
+      dataList: newDataList,
+    });
+
+    $('.disabled').toggleClass('disabled');
+
+
+  },
   handlePdfSubmit: function (file) {
     var newFields = []
     var data = new FormData
@@ -141,7 +174,7 @@ var PdfMapper = React.createClass({
             <button className="button right" onClick={this.handleSubmitFields}>Add pair</button>
           </div>
           <div className="small-4 columns">
-            <button className="button right">Remove pair</button>
+            <button className="button right" onClick={this.handleRemovePair}>Remove pair</button>
           </div>
           <div className="small-9 columns">
             {/*<PdfForm selectedFields={this.state.selectedFields} showInputs={this.state.showInputs} onSubmit={this.handleSubmit}/>*/}
