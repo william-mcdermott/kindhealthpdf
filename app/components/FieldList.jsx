@@ -3,15 +3,9 @@ var $ = require('jquery');
 var classNames = require('classnames')
 
 var FieldList = React.createClass({
-  getInitialState: function () {
-    return {
-      jsxReturn: [],
-      dataFields: [],
-      dataFieldArray: []
-    }
-  },
-  handleClick: function (index) {
-    this.props.onToggleField(index, this.props.listId)
+
+  handleClick: function (field, index) {
+    this.props.onToggleField(field, this.props.listId)
     // var fieldClass = classNames({
     //   'disabled': selectedFields.indexOf(newField) != -1,
     //   'fieldName': true
@@ -31,7 +25,8 @@ var FieldList = React.createClass({
     var renderDataFields = function () {
       return dataFields.map((field) => {
         return (
-          <div key={listId + dataFields.indexOf(field)} className="fieldName" id={listId + dataFields.indexOf(field)} onClick={() => that.handleClick(dataFields.indexOf(field))}>{field}</div>
+          <div key={listId + dataFields.indexOf(field)} className="fieldName" id={listId + dataFields.indexOf(field)} 
+          onClick={() => that.handleClick(field, dataFields.indexOf(field))}>{field}</div>
           // <div key={dataFields.indexOf(field)} className="fieldName">{field}</div>
         )
       });
