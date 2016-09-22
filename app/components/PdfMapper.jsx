@@ -128,10 +128,16 @@ var PdfMapper = React.createClass({
     })
     console.log(this.state);
   },
-    handleTestPdf: function (file) {
-    var pdfMap = []
-
-    axios.post('/testPdf').then(function(response) {
+  handleTestPdf: function (file) {
+    var pdfMap = {}
+    var {mapPairs} = this.state.dataList
+    mapPairs.forEach((field) => {
+      var splitFieldKey = field.split(' : ')[0]
+      var splitFieldValue = field.split(' : ')[1]
+      pdfMap[splitFieldKey] = splitFieldValue
+    })
+    console.log(pdfMap);
+    axios.post('/testPdf', pdfMap).then(function(response) {
       console.log("Downloading file...");
       console.log(response)
       // Maybe return a URL to open in a new tab

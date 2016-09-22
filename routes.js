@@ -41,6 +41,10 @@ module.exports = (app) => {
 
     app.post('/testPdf', function (req, res) {
       res.status(200).json('Route not ready yet')
+      var sourcePDF = './test/PDF/small.pdf'
+      var destinationPDF = './test/PDF/smallFilled.pdf'
+      var data = req.body
+      var shouldFlatten = false
       /*
       // try to run code that might fail disastrously
       try {
@@ -123,4 +127,4 @@ module.exports = (app) => {
 //   if (err) throw err
 //   res.status(200).json(FDF_data)
 //
-// 
+//
