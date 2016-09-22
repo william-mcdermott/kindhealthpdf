@@ -158,19 +158,32 @@ var PdfMapper = React.createClass({
 
   },
   handleFindSimilar: function () {
-    var fieldToCheck = this.state.selected.mapPairs[0].split(' : ')[0]
-    console.log(fieldToCheck);
-    var arrayToCheck = this.state.dataList.fdfNames;
-    var similarFields = arrayToCheck.filter((item) => {
-      return item.indexOf(fieldToCheck) !== -1
-    });
-    similarFields.forEach((field) => {
-      $('#fdfNames' + this.state.dataList.fdfNames.indexOf(field)).toggleClass('disabled');
-      this.handleToggleField(field, 'fdfNames')
-    })
+    if (this.state.selected.mapPairs.length !== 1) {
+      alert('Please select exactly one map pair to search')
+    } else {
+      var fieldToCheck = this.state.selected.mapPairs[0].split(' : ')[0]
+      console.log(fieldToCheck);
+      var arrayToCheck = this.state.dataList.fdfNames;
+      var similarFields = arrayToCheck.filter((item) => {
+        return item.indexOf(fieldToCheck) !== -1
+      });
+      similarFields.forEach((field) => {
+        $('#fdfNames' + this.state.dataList.fdfNames.indexOf(field)).toggleClass('disabled');
+        this.handleToggleField(field, 'fdfNames')
+      })
+    }
   },
   render: function () {
     console.log(this.state);
+    var selectedFdfNamesLength = this.state.selected.fdfNames.length
+    var fdfNamesLength = this.state.dataList.fdfNames.length
+    var renderNumberSelected = function () {
+      if (fdfNamesLength) {
+        return (
+          <p>Number of fields selected: {selectedFdfNamesLength}</p>
+        )
+      }
+    };
     return (
       <div>
         <div className="row">
@@ -186,7 +199,7 @@ var PdfMapper = React.createClass({
             <p></p>
           </div>
           <div className="small-4 columns">
-            <button className="button right" onClick={this.handleSubmitFields}>Add pair</button>
+            <button className="button" onClick={this.handleSubmitFields}>Add pair</button>
           </div>
           <div className="small-4 columns">
             <button className="button right" onClick={this.handleRemovePair}>Remove pair</button>
@@ -196,6 +209,7 @@ var PdfMapper = React.createClass({
         </div>
         <div className="row">
           <div className="small-4 columns">
+            {renderNumberSelected()}
             <FieldList onToggleField={this.handleToggleField} listId="fdfNames" selectedFields={this.state.selected.fdfNames} dataFields={this.state.dataList.fdfNames}/>
           </div>
           <div className="small-4 columns">
