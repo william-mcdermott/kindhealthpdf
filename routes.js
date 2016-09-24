@@ -42,7 +42,7 @@ module.exports = (app) => {
 
 
     app.post('/testPdf', function (req, res) {
-      res.status(200).json('Route not ready yet')
+      // res.status(200).json('Route not ready yet')
       var sourcePDF = './test/PDF/small.pdf'
       var destinationPDF = './test/PDF/smallFilled.pdf'
       var data = req.body

@@ -177,7 +177,7 @@ var PdfMapper = React.createClass({
     if (this.state.selected.mapPairs.length !== 1) {
       alert('Please select exactly one map pair to search')
     } else {
-      var fieldToCheck = this.state.selected.mapPairs[0].split(' : ')[0]
+      var fieldToCheck = this.state.selected.mapPairs[0].split(' : ')[0].split('_')[0]
       var varYouPicked = this.state.selected.mapPairs[0].split(' : ')[1]
       console.log(fieldToCheck);
       var arrayToCheck = this.state.dataList.fdfNames;
@@ -240,7 +240,7 @@ var PdfMapper = React.createClass({
           <div className="small-4 columns">
             {renderNumberSelected('mapPairs')}
             <FieldList onToggleField={this.handleToggleField} listId="mapPairs" selectedFields={this.state.selected.mapPairs} dataFields={this.state.dataList.mapPairs}/>
-            <button className="button right" onClick={this.handleTestPdf}>Test PDF map</button>
+            <button className="button right" onClick={this.handleTestPdf}>PDF map</button>
           </div>
         </div>
 
